@@ -32,7 +32,7 @@ def getActivity():
         getLocationInfo(ipAddress=curStreamsDic[index]['ip_address_public'], streamIndex=index, user = curStreamsDic[index]['user'], sessionKey=curStreamsDic[index]['session_key'], sessionID=curStreamsDic[index]['session_id'])
         logFileStream.write("\n------------------------------------------------------------------------------")
 
-#http://localhost:8181/api/v2?apikey=67359240365f409eb5a5b5fef2ca0cbb&cmd=terminate_session&session_key=170&session_id=1e3d7d1c47c98259-com-plexapp-android
+#http://localhost:8181/api/v2?apikey=&cmd=terminate_session&session_key=170&session_id=1e3d7d1c47c98259-com-plexapp-android
 def getLocationInfo(**kwargs):
     geoLocation = 'http://localhost:8181/api/v2?apikey='+apiKeyVal+'&cmd=get_geoip_lookup&ip_address=' + kwargs.get('ipAddress')
     user = kwargs.get('user')
