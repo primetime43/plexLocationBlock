@@ -1,12 +1,12 @@
 import json, logging, urllib.request, os
 from datetime import datetime
 
-curStreamsDic = {}
-#use logFileStream to stream when running on the desktop
-#logFileStream = open(os.getcwd()+'\\plexLocationBlockLogging.txt',"a+") 
+# can not have the same location in both arrays
+locationsToBlock = ["Florida", "Pennsylvania"]
+locationsToAllow = ["New York"]
+usersToAllow = ['test1', 'userNameEx']  # used to override locations
 
-#get the apikey value from settings>web interface>bottom of the page
-#apiKeyVal = ' '
+curStreamsDic = {}
 
 #environment variables
 TAUTULLI_URL = ''
@@ -18,26 +18,17 @@ def getActivity():
     curStreamsDic.clear()  # clear stream array
     endPoint = TAUTULLI_URL + '/api/v2?apikey='+TAUTULLI_APIKEY+'&cmd=get_activity'
 
-    #logFileStream.write("Log Begin: " + timeStamp())
     response = urllib.request.urlopen(endPoint)
     data = json.loads(response.read())
 
     # loop for the number of current sessions
     for stream in range(len(data['response']['data']['sessions'])):
         curStreamsDic[stream] = data['response']['data']['sessions'][stream]
-        #logFileStream.write("\n" + json.dumps(data['response']['data']['sessions'][stream], indent=2))
-        #logFileStream.write("\n--------------- Stream %s above ---------------" % (stream))
-        print("\n" + json.dumps(data['response']['data']['sessions'][stream], indent=2))
-        print("\n--------------- Stream %s above ---------------" % (stream))
+        #print("\n" + json.dumps(data['response']['data']['sessions'][stream], indent=2))
+        #print("\n--------------- Stream %s above ---------------" % (stream))
 
     #loop through all of the streams in the dict created in the loop above
     for index in range(len(curStreamsDic)):
-        #logFileStream.write("\n" + curStreamsDic[index]['user'])
-        #logFileStream.write("\n" + curStreamsDic[index]['machine_id'])
-        #logFileStream.write("\n" + curStreamsDic[index]['ip_address_public'])
-        #logFileStream.write("\n" + curStreamsDic[index]['session_key'])
-        #logFileStream.write("\n" + curStreamsDic[index]['session_id'])
-        #logFileStream.write("\n" + curStreamsDic[index]['location'])
         print("\n" + curStreamsDic[index]['user'])
         print("\n" + curStreamsDic[index]['machine_id'])
         print("\n" + curStreamsDic[index]['ip_address_public'])
@@ -45,24 +36,14 @@ def getActivity():
         print("\n" + curStreamsDic[index]['session_id'])
         print("\n" + curStreamsDic[index]['location'])
         getLocationInfo(ipAddress=curStreamsDic[index]['ip_address_public'], streamIndex=index, user = curStreamsDic[index]['user'], sessionKey=curStreamsDic[index]['session_key'], sessionID=curStreamsDic[index]['session_id'])
-        #logFileStream.write("\n------------------------------------------------------------------------------")
         print("\n------------------------------------------------------------------------------")
 
 def getLocationInfo(**kwargs):
     geoLocation = TAUTULLI_URL+'/api/v2?apikey='+TAUTULLI_APIKEY+'&cmd=get_geoip_lookup&ip_address=' + kwargs.get('ipAddress')
     user = kwargs.get('user')
 
-    # can not have the same location in both arrays
-    locationsToBlock = ["Florida", "Pennsylvania"]
-    locationsToAllow = ["New York"]
-    usersToAllow = ['test1', 'userNameEx']  # used to override locations
     response = urllib.request.urlopen(geoLocation)
     locationData = json.loads(response.read())
-    #logFileStream.write("\n------------------------------------------------------------------------------")
-    #logFileStream.write("\n" + kwargs.get('user') + " Location Data Below")
-    #logFileStream.write("\n" + locationData['response']['data']['city'] + " " + locationData['response']['data']['postal_code'] + ", "  + locationData['response']['data']['region'] + ", " + locationData['response']['data']['country'])
-    #logFileStream.write("\n" + json.dumps(locationData, indent=2))
-    #logFileStream.write("\n" + "--------------- %s Location Data Above ---------------" % user)
     print("\n------------------------------------------------------------------------------")
     print("\n" + kwargs.get('user') + " Location Data Below")
     print("\n" + locationData['response']['data']['city'] + " " + locationData['response']['data']['postal_code'] + ", "  + locationData['response']['data']['region'] + ", " + locationData['response']['data']['country'])
@@ -86,5 +67,3 @@ def timeStamp():
 
 getActivity()
 print("\nLog End: " + timeStamp())
-#logFileStream.write("\nLog End: " + timeStamp())
-#logFileStream.close()
