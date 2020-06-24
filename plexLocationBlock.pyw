@@ -59,7 +59,7 @@ def getLocationInfo(**kwargs):
         urllib.request.urlopen(TAUTULLI_URL+'/api/v2?apikey='+TAUTULLI_APIKEY+'&cmd=terminate_session&session_key='+kwargs.get('sessionKey')+'&session_id='+kwargs.get('sessionID'))
     else:
         #logFileStream.write("\n" + user + " is allowed at the current location of " + location)
-        print("\n" + user + " is allowed at the current location of " + cityLocation ", " + location)
+        print("\n" + user + " is allowed at the current location of " + cityLocation + ", " + location)
 
 def timeStamp():
     now = datetime.now()
