@@ -66,8 +66,6 @@ def getLocationInfo(**kwargs):
     else:
         #logFileStream.write("\n" + user + " is allowed at the current location of " + location)
         print("\n" + user + " is allowed at the current location of " + cityLocation + ", " + location)
-		
-    print("\n------------------------------------------------------------------------------\n")
 
 
 def timeStamp():
