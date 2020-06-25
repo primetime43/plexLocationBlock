@@ -1,5 +1,5 @@
 # plexLocationBlock
- Block Plex streams via location
+ Block Plex streams via location. Can block by city or state.
 
 Requirements:
 * Python 3
