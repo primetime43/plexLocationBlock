@@ -45,16 +45,14 @@ def getActivity():
 
 
 def getLocationInfo(**kwargs):
-    geoLocation = TAUTULLI_URL+'/api/v2?apikey='+TAUTULLI_APIKEY + \
-        '&cmd=get_geoip_lookup&ip_address=' + kwargs.get('ipAddress')
+    geoLocation = TAUTULLI_URL+'/api/v2?apikey='+TAUTULLI_APIKEY + '&cmd=get_geoip_lookup&ip_address=' + kwargs.get('ipAddress')
     user = kwargs.get('user')
 
     response = urllib.request.urlopen(geoLocation)
     locationData = json.loads(response.read())
     # print("\n------------------------------------------------------------------------------")
     print("\n" + kwargs.get('user') + " Location Data Below")
-    print("\n" + locationData['response']['data']['city'] + " " + locationData['response']['data']['postal_code'] +
-          ", " + locationData['response']['data']['region'] + ", " + locationData['response']['data']['country'])
+    print("\n" + locationData['response']['data']['city'] + " " + locationData['response']['data']['postal_code'] + ", " + locationData['response']['data']['region'] + ", " + locationData['response']['data']['country'])
     print("\n" + json.dumps(locationData, indent=2))
     print("\n" + "--------------- %s Location Data Above ---------------" % user)
 
@@ -63,14 +61,11 @@ def getLocationInfo(**kwargs):
     # the location is not in the allowed list and is present in the blocked list and user isn't in allowed list
     if location not in locationsToAllow and cityLocation not in locationsToAllow and location in locationsToBlock or cityLocation in locationsToBlock and user not in usersToAllow:
         #logFileStream.write("\n" + location + " not in allowed locations and is present in locations to block! user: " + user)
-        print("\n" + location +
-              " not in allowed locations and is present in locations to block! user: " + user)
-        urllib.request.urlopen(TAUTULLI_URL+'/api/v2?apikey='+TAUTULLI_APIKEY +
-                               '&cmd=terminate_session&session_key='+kwargs.get('sessionKey')+'&session_id='+kwargs.get('sessionID'))
+        print("\n" + location + " not in allowed locations and is present in locations to block! user: " + user)
+        urllib.request.urlopen(TAUTULLI_URL+'/api/v2?apikey='+TAUTULLI_APIKEY + '&cmd=terminate_session&session_key='+kwargs.get('sessionKey')+'&session_id='+kwargs.get('sessionID'))
     else:
         #logFileStream.write("\n" + user + " is allowed at the current location of " + location)
-        print("\n" + user + " is allowed at the current location of " +
-              cityLocation + ", " + location)
+        print("\n" + user + " is allowed at the current location of " + cityLocation + ", " + location)
 
 
 def timeStamp():
