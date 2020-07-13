@@ -3,4 +3,4 @@
 
 Requirements:
 * Python 3
-* Tautulli v2.5.2 to run Python 3 or configure older versions to run Python 3)
+* Tautulli v2.5.2 or newer to run Python 3 or configure older versions to run Python 3)
