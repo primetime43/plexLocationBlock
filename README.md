@@ -21,6 +21,7 @@ Requirements:
 * Once you have the above completed and set-up, you can modify the script to your needs (use notepad++ or whatever you prefer)
 * The only changes to the script that are needed are at the top on lines 8-10 (nothing else needs modified)
 The locationsToBlock array currently accepts cities and states to block, but allows users to override blocks. Users can be added when you want to block a state, but want to allow a certain user in that state to be allowed to watch (may add more specific locations later)
+
 locationsToBlock
 ```python
 locationsToBlock = ["Florida", "Pennsylvania", "Los Angeles", "Houston"]
